@@ -3,7 +3,7 @@ import Home from "./pages/Home";
 import Characters from "./pages/Characters";
 import BattleRoom from "./pages/BattleRoom";
 import Navigation from "./components/Navigation";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
   return (

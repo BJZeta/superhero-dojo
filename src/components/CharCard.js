@@ -1,35 +1,36 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 
-export default class CharCard extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      error: null,
-      isLoaded: false,
-      card: [],
-    };
-  }
+export default function CharCard(props) {
+  const [error, setError] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [card, setCard] = useState([]);
 
-  componentDidMount() {
-    fetch(`https://superheroapi.com/api/${process.env.API_TOKEN}/character-id`)
+  const url = `https://superheroapi.com/api/3619192178108339/${props.charId}`;
+
+  const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+
+  useEffect(() => {
+    fetch(proxyUrl + url)
       .then((res) => res.json())
       .then(
         (result) => {
-          this.setState({
-            isLoaded: true,
-            card: result,
-          });
+          setIsLoaded(true);
+          setCard(result);
         },
         (error) => {
-          this.setState({
-            isLoaded: true,
-            error,
-          });
+          setIsLoaded(true);
+          setError(error);
         }
       );
-  }
+  }, []);
 
-  render() {
-    return <div></div>;
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  } else if (!isLoaded) {
+    return <div>Loading...</div>;
+  } else {
+    return <h1>{card.name}</h1>;
   }
 }
+
+// `

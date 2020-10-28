@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import CharCard from "../components/CharCard";
 import { Container, Row, Col, Button } from "react-bootstrap";
 
 export default class Home extends Component {
@@ -22,6 +23,9 @@ export default class Home extends Component {
             <Col>
               <Button>Setup Fight</Button>
             </Col>
+          </Row>
+          <Row>
+            <CharCard charId="332" />
           </Row>
         </Container>
       </div>
