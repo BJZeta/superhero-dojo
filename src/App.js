@@ -1,9 +1,10 @@
 import React from "react";
 import Home from "./pages/Home";
 import Characters from "./pages/Characters";
-import BattleRoom from "./pages/BattleRoom";
+import CharChard from "./components/CharCard";
 import Navigation from "./components/Navigation";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import CharCard from "./components/CharCard";
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
             <Characters />
           </Route>
           <Route path="/battle-room">
-            <BattleRoom />
+            <CharCard />
           </Route>
         </Switch>
       </Router>
