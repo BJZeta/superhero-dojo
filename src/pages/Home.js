@@ -31,6 +31,12 @@ export default class Home extends Component {
             <Col>
               <CharCard charId="644" />
             </Col>
+            <Col>
+              <CharCard charId="620" />
+            </Col>
+            <Col>
+              <CharCard charId="70" />
+            </Col>
           </Row>
         </Container>
       </div>

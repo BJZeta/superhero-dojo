@@ -26,7 +26,21 @@ export default class CharCard extends Component {
   }
 
   render() {
-    return <img src={this.state.img} alt={this.state.name} />;
+    return (
+      <Card style={{ width: "10rem" }}>
+        <Card.Img
+          variant="bottom"
+          src={this.state.img}
+          style={{ maxHeight: "12rem" }}
+        />
+        <Card.Body className="text-center">
+          <Card.Title>{this.state.name}</Card.Title>
+          <Button variant="primary" style={{ padding: "4px" }}>
+            Check Stats
+          </Button>
+        </Card.Body>
+      </Card>
+    );
   }
   /////set up what's left for the state, and decide what the card will have
 }
