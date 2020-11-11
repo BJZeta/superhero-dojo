@@ -42,5 +42,4 @@ export default class CharCard extends Component {
       </Card>
     );
   }
-  /////set up what's left for the state, and decide what the card will have
 }
