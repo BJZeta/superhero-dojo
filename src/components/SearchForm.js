@@ -9,9 +9,9 @@ export default function SearchForm({ name, onNameChange }) {
           <Form.Label>Character Name</Form.Label>
           <Form.Control
             onChange={onNameChange}
-            value={name}
             name="name"
             type="text"
+            value={name}
           />
         </Form.Group>
       </Form.Row>
