@@ -2,6 +2,7 @@ import React from "react";
 import Home from "./pages/Home";
 import Characters from "./pages/Characters";
 import BattleRoom from "./pages/BattleRoom";
+import Character from "./pages/Character";
 import Navigation from "./components/Navigation";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -19,6 +20,9 @@ function App() {
           </Route>
           <Route path="/battle-room">
             <BattleRoom />
+          </Route>
+          <Route path="/character/:key">
+            <Character />
           </Route>
         </Switch>
       </Router>
