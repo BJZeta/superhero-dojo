@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Image, Container, Row, Col } from "react-bootstrap";
+import { Image, Container, Row, Col, Button } from "react-bootstrap";
 
 export default function Character() {
   let { key } = useParams();
@@ -17,7 +17,7 @@ export default function Character() {
   }, [key]);
 
   return (
-    <Container>
+    <Container className="mx-2 mb-4">
       <Row className="justify-content-center mt-2">
         <Col className="text-center">
           <Image
@@ -28,6 +28,11 @@ export default function Character() {
             }
             height="200"
           />
+          <p>
+            {character.biography
+              ? character.biography["first-appearance"]
+              : " "}
+          </p>
         </Col>
         <Col className="text-center">
           <h1>{character.name}</h1>
@@ -48,31 +53,80 @@ export default function Character() {
           </h4>
         </Col>
       </Row>
-      <Row className="mt-3">
-        <h2>Power Stats</h2>
+      <Row className="mt-3 justify-content-center">
+        <h2>Character Info</h2>
       </Row>
       <Row>
-        <Col>
-          <ul style={{ listStyle: "none", fontSize: "24px" }}>
-            <li>
-              Strength: {character.powerstats && character.powerstats.strength}
-            </li>
-            <li>
-              Intelligence:{" "}
-              {character.powerstats && character.powerstats.intelligence}
-            </li>
-            <li>Speed: {character.powerstats && character.powerstats.speed}</li>
-            <li>
-              Durability:{" "}
-              {character.powerstats && character.powerstats.durability}
-            </li>
-            <li>Power: {character.powerstats && character.powerstats.power}</li>
-            <li>
-              Combat Skills:{" "}
-              {character.powerstats && character.powerstats.combat}
-            </li>
-          </ul>
+        <Col className="text-center">
+          <h2>Power Stats</h2>
+          {character.powerstats ? (
+            <ul style={{ listStyle: "none", fontSize: "24px", padding: "0" }}>
+              <li>Strength: {character.powerstats.strength}</li>
+              <li>
+                Intelligence:{" "}
+                {character.powerstats.intelligence === "null"
+                  ? "N/A"
+                  : character.powerstats.intelligence}
+              </li>
+              <li>
+                Speed:{" "}
+                {character.powerstats.speed === "null"
+                  ? "N/A"
+                  : character.powerstats.speed}
+              </li>
+              <li>
+                Durability:{" "}
+                {character.powerstats.durability === "null"
+                  ? "N/A"
+                  : character.powerstats.durability}
+              </li>
+              <li>
+                Power:{" "}
+                {character.powerstats.power === "null"
+                  ? "N/A"
+                  : character.powerstats.power}
+              </li>
+              <li>
+                Combat Skills:{" "}
+                {character.powerstats.combat === "null"
+                  ? "N/A"
+                  : character.powerstats.combat}
+              </li>
+            </ul>
+          ) : (
+            <h4>Loading</h4>
+          )}
         </Col>
+        <Col className="text-center">
+          <h2>Factoids</h2>
+          <br />
+          {character.appearance ? (
+            <div>
+              <h4>
+                Gender - <span>{character.appearance.gender}</span>
+              </h4>
+              <h4>
+                Race - <span>{character.appearance.race}</span>
+              </h4>
+              <h4>
+                Height - <span>{character.appearance.height[0]}</span>
+              </h4>
+              <h4>
+                Weight - <span>{character.appearance.weight[0]}</span>
+              </h4>
+            </div>
+          ) : (
+            <h4>Loading...</h4>
+          )}
+        </Col>
+      </Row>
+      <Row className="justify-content-center">
+        <Button className="mx-2" variant="success">
+          Add to DOJO
+        </Button>
+        <Button className="mx-2" variant="secondary" href="/characters">
+          Back to Search
+        </Button>
       </Row>
     </Container>
   );
