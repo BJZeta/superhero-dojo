@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import { Link, useHistory, useParams } from "react-router-dom";
-import { Badge, Card, Button, Collapse } from "react-bootstrap";
-import ReactMarkdown from "react-markdown";
+import React from "react";
+import { Link } from "react-router-dom";
+import { Card, Button } from "react-bootstrap";
 
 export default function SearchCard({ character }) {
   const link = `/character/${character.id}`;
