@@ -5,6 +5,7 @@ import { Image, Container, Row, Col, Button } from "react-bootstrap";
 export default function Character() {
   let { key } = useParams();
   const [character, setCharacter] = useState({});
+  const [charStats, setCharStats] = useState({});
   ////DESIGN CHARACTER PAGE
 
   useEffect(() => {
@@ -12,6 +13,11 @@ export default function Character() {
       .then((res) => res.json())
       .then((data) => {
         setCharacter(data);
+        setCharStats({
+          name: data.name,
+          img: data.image.url,
+          strength: data.powerstats.strength,
+        });
       })
       .catch((err) => console.log(err));
   }, [key]);
