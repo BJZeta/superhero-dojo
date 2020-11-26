@@ -35,22 +35,29 @@ export default function Character() {
           </p>
         </Col>
         <Col className="text-center">
-          <h1>{character.name}</h1>
-          <h2>
-            {character.biography
-              ? character.biography["full-name"]
-              : "Loading..."}
-          </h2>
-          <h4 className="text-muted">
-            {character.biography ? character.biography.publisher : "Loading..."}
-          </h4>
-          <br />
-          <h4>
-            Alignment:{" "}
-            <span className="text-capitalize">
-              {character.biography ? character.biography.alignment : ""}
-            </span>
-          </h4>
+          {character.biography ? (
+            <div>
+              <h1>{character.name}</h1>
+              <h2>{character.biography["full-name"]}</h2>
+              <h4 className="text-muted">
+                {character.biography.publisher !== "null"
+                  ? character.biography.publisher
+                  : ""}
+              </h4>
+              <br />
+              <h4>
+                Alignment:{" "}
+                <span className="text-capitalize">
+                  {character.biography.alignment}
+                </span>
+              </h4>
+            </div>
+          ) : (
+            <Image
+              src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif"
+              height="200"
+            />
+          )}
         </Col>
       </Row>
       <Row className="mt-3 justify-content-center">
@@ -106,13 +113,28 @@ export default function Character() {
                 Gender - <span>{character.appearance.gender}</span>
               </h4>
               <h4>
-                Race - <span>{character.appearance.race}</span>
+                Race -{" "}
+                <span>
+                  {character.appearance.race !== "null"
+                    ? character.appearance.race
+                    : "N/A"}
+                </span>
               </h4>
               <h4>
-                Height - <span>{character.appearance.height[0]}</span>
+                Height -{" "}
+                <span>
+                  {character.appearance.height[0] !== "-"
+                    ? character.appearance.height[0]
+                    : "N/A"}
+                </span>
               </h4>
               <h4>
-                Weight - <span>{character.appearance.weight[0]}</span>
+                Weight -{" "}
+                <span>
+                  {character.appearance.weight[0] !== "- lb"
+                    ? character.appearance.weight[0]
+                    : "N/A"}
+                </span>
               </h4>
             </div>
           ) : (

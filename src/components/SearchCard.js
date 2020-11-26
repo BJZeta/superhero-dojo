@@ -16,7 +16,11 @@ export default function SearchCard({ character }) {
                 {character.biography["full-name"]}
               </span>
             </Card.Title>
-            <Card.Subtitle>{character.biography.publisher}</Card.Subtitle>
+            <Card.Subtitle>
+              {character.biography.publisher !== "null"
+                ? character.biography.publisher
+                : ""}
+            </Card.Subtitle>
           </div>
           <div>
             <img
