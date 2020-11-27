@@ -1,50 +1,51 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { Component } from "react";
 import { Image, Container, Row, Col, Button } from "react-bootstrap";
 
-export default function Character() {
-  let { key } = useParams();
-  const [character, setCharacter] = useState({});
-  const [charStats, setCharStats] = useState({});
-  ////DESIGN CHARACTER PAGE
+export default class Character extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      error: null,
+      isLoaded: false,
+      character: {},
+    };
+  }
 
-  useEffect(() => {
+  componentDidMount() {
+    const { key } = this.props.match.params;
+
     fetch(`https://www.superheroapi.com/api.php/3619192178108339/${key}`)
       .then((res) => res.json())
-      .then((data) => {
-        setCharacter(data);
-        setCharStats({
-          name: data.name,
-          img: data.image.url,
-          strength: data.powerstats.strength,
-        });
-      })
-      .catch((err) => console.log(err));
-  }, [key]);
+      .then(
+        (result) => {
+          this.setState({
+            isLoaded: true,
+            character: result,
+          });
+        },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error,
+          });
+        }
+      );
+  }
 
-  return (
-    <Container className="mx-2 mb-4">
-      <Row className="justify-content-center mt-2">
-        <Col className="text-center">
-          <Image
-            src={
-              character.image
-                ? character.image.url
-                : "https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif"
-            }
-            height="200"
-          />
-          <p>
-            {character.biography
-              ? character.biography["first-appearance"]
-              : " "}
-          </p>
-        </Col>
-        <Col className="text-center">
-          {character.biography ? (
+  render() {
+    const character = this.state.character;
+
+    return this.state.isLoaded ? (
+      <Container className="mx-2 mb-4">
+        <Row className="justify-content-center mt-2">
+          <Col className="text-center">
+            <Image src={character.image.url} height="200" />
+            <p>{character.biography["first-appearance"]}</p>
+          </Col>
+          <Col className="text-center">
             <div>
               <h1>{character.name}</h1>
-              <h2>{character.biography["full-name"]}</h2>
+              <h2>{character.biography["first-appearance"]}</h2>
               <h4 className="text-muted">
                 {character.biography.publisher !== "null"
                   ? character.biography.publisher
@@ -58,22 +59,15 @@ export default function Character() {
                 </span>
               </h4>
             </div>
-          ) : (
-            <Image
-              src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif"
-              height="200"
-            />
-          )}
-        </Col>
-      </Row>
-      <Row className="mt-3 justify-content-center">
-        <h2>Character Info</h2>
-      </Row>
-      <Row>
-        <Col className="text-center">
-          <h2>Power Stats</h2>
-          {character.powerstats ? (
-            <ul style={{ listStyle: "none", fontSize: "24px", padding: "0" }}>
+          </Col>
+        </Row>
+        <Row className="mt-3 justify-content-center">
+          <h2>Character Info</h2>
+        </Row>
+        <Row>
+          <Col className="text-center">
+            <h2>Power Stats</h2>
+            <ul style={{ listStyle: "none", font: "24px", padding: "0" }}>
               <li>Strength: {character.powerstats.strength}</li>
               <li>
                 Intelligence:{" "}
@@ -106,14 +100,10 @@ export default function Character() {
                   : character.powerstats.combat}
               </li>
             </ul>
-          ) : (
-            <h4>Loading</h4>
-          )}
-        </Col>
-        <Col className="text-center">
-          <h2>Factoids</h2>
-          <br />
-          {character.appearance ? (
+          </Col>
+          <Col className="text-center">
+            <h2>Factoids</h2>
+            <br />
             <div>
               <h4>
                 Gender - <span>{character.appearance.gender}</span>
@@ -143,19 +133,24 @@ export default function Character() {
                 </span>
               </h4>
             </div>
-          ) : (
-            <h4>Loading...</h4>
-          )}
-        </Col>
-      </Row>
-      <Row className="justify-content-center">
-        <Button className="mx-2" variant="success">
-          Add to DOJO
-        </Button>
-        <Button className="mx-2" variant="secondary" href="/characters">
-          Back to Search
-        </Button>
-      </Row>
-    </Container>
-  );
+          </Col>
+        </Row>
+        <Row className="justify-content-center">
+          <Button className="mx-2" variant="success">
+            Add to DOJO
+          </Button>
+          <Button className="mx-2" variant="secondary" href="/characters">
+            Back to Search
+          </Button>
+        </Row>
+      </Container>
+    ) : (
+      <div className="text-center mx-0">
+        <Image
+          src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif"
+          height="500"
+        />
+      </div>
+    );
+  }
 }
