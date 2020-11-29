@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Image, Container, Row, Col, Button } from "react-bootstrap";
+import { Redirect } from "react-router-dom";
 
 export default class Character extends Component {
   constructor(props) {
@@ -8,6 +9,8 @@ export default class Character extends Component {
       error: null,
       isLoaded: false,
       character: {},
+      characterStats: {},
+      redirect: false,
     };
   }
 
@@ -21,6 +24,10 @@ export default class Character extends Component {
           this.setState({
             isLoaded: true,
             character: result,
+            characterStats: {
+              name: result.name,
+              strength: result.powerstats.strength,
+            },
           });
         },
         (error) => {
@@ -31,6 +38,20 @@ export default class Character extends Component {
         }
       );
   }
+
+  setRedirect = () => {
+    this.setState({
+      redirect: true,
+    });
+  };
+
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return (
+        <Redirect to="/battle-room" fighters={this.state.characterStats} />
+      );
+    }
+  };
 
   render() {
     const character = this.state.character;
@@ -136,7 +157,8 @@ export default class Character extends Component {
           </Col>
         </Row>
         <Row className="justify-content-center">
-          <Button className="mx-2" variant="success">
+          {this.renderRedirect()}
+          <Button className="mx-2" variant="success" onClick={this.setRedirect}>
             Add to DOJO
           </Button>
           <Button className="mx-2" variant="secondary" href="/characters">
