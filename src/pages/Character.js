@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Image, Container, Row, Col, Button } from "react-bootstrap";
-import { Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default class Character extends Component {
   constructor(props) {
@@ -10,7 +10,6 @@ export default class Character extends Component {
       isLoaded: false,
       character: {},
       characterStats: {},
-      redirect: false,
     };
   }
 
@@ -39,19 +38,17 @@ export default class Character extends Component {
       );
   }
 
-  setRedirect = () => {
-    this.setState({
-      redirect: true,
-    });
-  };
-
-  renderRedirect = () => {
-    if (this.state.redirect) {
-      return (
-        <Redirect to="/battle-room" fighters={this.state.characterStats} />
-      );
-    }
-  };
+  // handleSubmit(e) {
+  //   e.preventDefault();
+  //   <Link
+  //     to={{
+  //       pathname: "/battle-room",
+  //       state: {
+  //         character: this.state.character,
+  //       },
+  //     }}
+  //   />;
+  // }
 
   render() {
     const character = this.state.character;
@@ -157,9 +154,17 @@ export default class Character extends Component {
           </Col>
         </Row>
         <Row className="justify-content-center">
-          {this.renderRedirect()}
-          <Button className="mx-2" variant="success" onClick={this.setRedirect}>
-            Add to DOJO
+          <Button className="mx-2" variant="success">
+            <Link
+              to={{
+                pathname: "/battle-room",
+                state: {
+                  character: this.state.character,
+                },
+              }}
+            >
+              Add to DOJO
+            </Link>
           </Button>
           <Button className="mx-2" variant="secondary" href="/characters">
             Back to Search

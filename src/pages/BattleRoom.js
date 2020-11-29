@@ -1,19 +1,9 @@
-import React, { Component } from "react";
-import { Container, Row } from "react-bootstrap";
+import React from "react";
 
-export default class BattleRoom extends Component {
-  render() {
-    return (
-      <div>
-        <Container>
-          <Row className="my-auto text-center">
-            <h2 className="text-center">Welcome to the</h2>
-          </Row>
-          <Row>
-            <h1>Battle Room</h1>
-          </Row>
-        </Container>
-      </div>
-    );
-  }
-}
+const BattleRoom = (props) => {
+  const { character } = props.location.state.character || {};
+
+  return <div>{}</div>;
+};
+
+export default BattleRoom;
