@@ -159,7 +159,7 @@ export default class Character extends Component {
               to={{
                 pathname: "/battle-room",
                 state: {
-                  character: this.state.character,
+                  fighter: this.state.characterStats,
                 },
               }}
             >

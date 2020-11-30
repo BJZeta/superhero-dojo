@@ -1,9 +1,20 @@
-import React from "react";
+import React, { Component } from "react";
 
-const BattleRoom = (props) => {
-  const { character } = props.location.state.character || {};
+export default class BattleRoom extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      fighters: [{}],
+    };
+  }
 
-  return <div>{}</div>;
-};
+  componentDidMount() {
+    this.setState({
+      fighters: this.props.location.state,
+    });
+  }
 
-export default BattleRoom;
+  render() {
+    return <div></div>;
+  }
+}
