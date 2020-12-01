@@ -160,6 +160,7 @@ export default class Character extends Component {
                 pathname: "/battle-room",
                 state: {
                   fighter: this.state.characterStats,
+                  name: character.name,
                 },
               }}
             >
