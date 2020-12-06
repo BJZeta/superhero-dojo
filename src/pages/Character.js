@@ -24,8 +24,10 @@ export default class Character extends Component {
             isLoaded: true,
             character: result,
             characterStats: {
+              key: result.id,
               name: result.name,
               strength: result.powerstats.strength,
+              img: result.image.url,
             },
           });
         },

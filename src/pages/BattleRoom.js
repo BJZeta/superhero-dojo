@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Button, Image } from "react-bootstrap";
+import { Card, Button, Image, Container, Row, Col } from "react-bootstrap";
 
 ///////DATA is FINALLY passing thru, now see if you can update fighters array w/o overwriting original data inside
 
@@ -40,31 +40,43 @@ export default class BattleRoom extends Component {
     const fighters = this.state.fighters;
 
     return (
-      <div>
-        {fighters[0] ? (
-          <Card style={{ width: "10rem" }}>
-            <Card.Img
-              variant="bottom"
-              src={this.state.img}
-              style={{ maxHeight: "12rem" }}
-            />
-            <Card.Body className="text-center">
-              <Card.Title>{this.state.name}</Card.Title>
-              <Button variant="primary" style={{ padding: "4px" }}>
-                Check Stats
-              </Button>
-            </Card.Body>
-          </Card>
+      <Container>
+        {fighters[1] ? (
+          <>
+            <Row>
+              {this.state.fighters.map((fighter, key) => {
+                return (
+                  <Col key={key} className="ml-4">
+                    <Card style={{ width: "10rem", justifyContent: "center" }}>
+                      <Card.Img
+                        variant="bottom"
+                        src={fighter.img}
+                        style={{ maxHeight: "12rem" }}
+                      />
+                      <Card.Body className="text-center">
+                        <Card.Title>{fighter.name}</Card.Title>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                );
+              })}
+            </Row>
+            <Row className="justify-content-center mt-5 mr-1">
+              <Button>FIGHT!</Button>
+            </Row>
+          </>
         ) : (
-          <div>
-            <Image
-              src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif"
-              height="500"
-            />
-            <h2>Need a fighter to get started</h2>
-          </div>
+          <Row className="justify-content-center">
+            <Col className="text-center">
+              <Image
+                src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif"
+                height="500"
+              />
+              <h2>Need 2 fighters to get started</h2>
+            </Col>
+          </Row>
         )}
-      </div>
+      </Container>
     );
   }
 }
