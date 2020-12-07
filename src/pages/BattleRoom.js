@@ -14,7 +14,7 @@ export default class BattleRoom extends Component {
   componentDidMount() {
     if (this.props.location.state) {
       localStorage.setItem(
-        this.props.location.state.name,
+        this.props.location.state.fighter.key,
         JSON.stringify(this.props.location.state.fighter)
       );
 
@@ -34,6 +34,11 @@ export default class BattleRoom extends Component {
         };
       });
     }
+  }
+
+  clearFighters(empty) {
+    localStorage.clear();
+    this.setState({ fighters: empty });
   }
 
   render() {
@@ -64,7 +69,22 @@ export default class BattleRoom extends Component {
             <Row className="justify-content-center mt-5 mr-1">
               <Button>FIGHT!</Button>
             </Row>
+            <Row className="justify-content-center mt-5 mr-1">
+              <Button onClick={(e) => this.clearFighters([])}>
+                Clear Screen
+              </Button>
+            </Row>
           </>
+        ) : fighters[0] ? (
+          <Row className="justify-content-center">
+            <Col className="text-center">
+              <Image
+                src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif"
+                height="500"
+              />
+              <h2>Need 1 more fighter to get started</h2>
+            </Col>
+          </Row>
         ) : (
           <Row className="justify-content-center">
             <Col className="text-center">

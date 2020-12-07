@@ -1,0 +1,7 @@
+.remove-btn {
+  opacity: 0;
+}
+
+.remove-btn:hover {
+  opacity: 1;
+}

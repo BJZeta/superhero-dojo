@@ -1,3 +1,4 @@
+import "./custom.css";
 import React, { Component } from "react";
 import Home from "./pages/Home";
 import Characters from "./pages/Characters";
