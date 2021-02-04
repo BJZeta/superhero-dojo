@@ -20,12 +20,12 @@ const Header = () => {
             <Nav className="ml-auto">
               <LinkContainer to="/search">
                   <Nav.Link>
-                      <i className="fas fa-search"/> Search Hero
+                      <i className="fas fa-search"/>{" - "}Search Hero
                   </Nav.Link>
               </LinkContainer>
               <LinkContainer to="/dojo">
                   <Nav.Link>
-                      <i className="fas fa-fist-raised"/> Enter DOJO
+                      <i className="fas fa-fist-raised"/>{" - "}Enter DOJO
                   </Nav.Link>
               </LinkContainer>
             </Nav>

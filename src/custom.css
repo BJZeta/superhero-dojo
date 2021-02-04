@@ -5,3 +5,7 @@
 .remove-btn:hover {
   opacity: 1;
 }
+
+.black-text h1 {
+  color: black
+}
