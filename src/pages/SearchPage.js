@@ -1,13 +1,32 @@
-import React from "react";
-import { Form, Container, Button } from "react-bootstrap";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Form, Container, Button, Row } from "react-bootstrap";
+import { listCharacters } from "../actions/searchActions";
 
 const SearchPage = () => {
+  const [name, setName] = useState("");
+
+  const dispatch = useDispatch();
+
+  const searchList = useSelector((state) => state.searchList);
+  const { loading, characters, error } = searchList;
+
+  const handleSearchCharacter = (e) => {
+    e.preventDefault();
+    dispatch(listCharacters(name));
+  };
+
   return (
     <Container md={6}>
-      <Form>
+      <Form onSubmit={handleSearchCharacter}>
         <Form.Group controlId="formCharacterSearch">
           <Form.Label>Search Character</Form.Label>
-          <Form.Control type="text" placeholder="Enter a Hero/Villain" />
+          <Form.Control
+            type="text"
+            placeholder="Enter a Hero/Villain"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
           <Form.Text className="text-muted">
             If a character is appearing, try using their Alias, i.e. Dick
             Grayson, Miles Morales
@@ -17,6 +36,14 @@ const SearchPage = () => {
           </Button>
         </Form.Group>
       </Form>
+      {loading && <h1>Loading....</h1>}
+      {error && <h3>{error}</h3>}
+      {characters &&
+        characters.map((character) => (
+          <Row>
+            <h2>{character.name}</h2>
+          </Row>
+        ))}
     </Container>
   );
 };
