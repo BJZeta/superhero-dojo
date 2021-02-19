@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Form, Container, Button, Row } from "react-bootstrap";
+import { Form, Container, Button } from "react-bootstrap";
 import { listCharacters } from "../actions/searchActions";
+import SearchCard from "../components/SearchCard";
 
 const SearchPage = () => {
   const [name, setName] = useState("");
@@ -39,11 +40,7 @@ const SearchPage = () => {
       {loading && <h1>Loading....</h1>}
       {error && <h3>{error}</h3>}
       {characters &&
-        characters.map((character) => (
-          <Row>
-            <h2>{character.name}</h2>
-          </Row>
-        ))}
+        characters.map((character) => <SearchCard character={character} />)}
     </Container>
   );
 };

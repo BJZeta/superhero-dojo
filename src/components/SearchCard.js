@@ -1,6 +1,6 @@
 import React from "react";
 import { LinkContainer } from "react-router-bootstrap";
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, Image } from "react-bootstrap";
 
 const SearchCard = ({ character }) => {
   return (
@@ -21,16 +21,16 @@ const SearchCard = ({ character }) => {
             </Card.Subtitle>
           </div>
           <div>
-            <img
+            <Image
               className="d-none d-md-block"
-              height="70"
+              height="100"
               src={character.image.url}
-              alt={character.name}
+              alt={character.name}         
             />
           </div>
         </div>
         <Card.Text>
-          <LinkContainer>
+          <LinkContainer to={`/character/${character.id}`}>
             <Button variant="secondary">See Stats</Button>
           </LinkContainer>
         </Card.Text>
