@@ -1,10 +1,11 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
-import { searchListReducer } from "./reducers/index";
+import { characterInfoReducer, searchListReducer } from "./reducers/index";
 
 const reducer = combineReducers({
   searchList: searchListReducer,
+  characterInfo: characterInfoReducer
 });
 
 const initialState = {};
