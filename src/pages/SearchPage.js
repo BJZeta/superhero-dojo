@@ -1,26 +1,45 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Form, Container, Button, Row, Col, Image } from "react-bootstrap";
-import { listCharacters } from "../actions/searchActions";
 import SearchCard from "../components/SearchCard";
 
 const SearchPage = () => {
+  const [characters, setCharacters] = useState([]);
   const [name, setName] = useState("");
-
-  const dispatch = useDispatch();
-
-  const searchList = useSelector((state) => state.searchList);
-  const { loading, characters, error } = searchList;
+  const [loading, setLoading] = useState(false);
+  const [error, setErrorMessage] = useState(null);
 
   const handleSearchCharacter = (e) => {
     e.preventDefault();
-    dispatch(listCharacters(name));
+
+    setLoading(true);
+    setErrorMessage(null);
+    fetch(
+      `https://www.superheroapi.com/api.php/3619192178108339/search/${name}`
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.response === "success") {
+          setCharacters(res.results);
+          setName("");
+          setLoading(false);
+        } else {
+          setErrorMessage(res.error);
+          setLoading(false);
+        }
+      });
   };
 
   return (
     <Container>
-      <Row>
-        <Col md={12}>
+      <Row className="justify-content-center">
+        <Col lg={3} className="float-left">
+          <Image
+            className="float-left"
+            src="https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=jpg&quality=90&v=1530129081"
+            width="80%"
+          />
+        </Col>
+        <Col lg={5}>
           <Form onSubmit={handleSearchCharacter}>
             <Form.Group controlId="formCharacterSearch">
               <Form.Label>Search Character</Form.Label>
@@ -34,9 +53,14 @@ const SearchPage = () => {
                 If a character is appearing, try using their Alias, i.e. Dick
                 Grayson, Miles Morales. Also, try hyphens (Spider-Man)
               </Form.Text>
+              <div className="justify-content-between">
               <Button variant="primary" type="submit">
                 Search
               </Button>
+              <Button className="float-right ml-3" variant="danger" type="submit">
+                FIGHT!
+              </Button>
+              </div>
             </Form.Group>
           </Form>
           {loading && <h1>Loading....</h1>}
@@ -44,20 +68,15 @@ const SearchPage = () => {
           {characters &&
             characters.map((character) => <SearchCard character={character} />)}
         </Col>
-      </Row>
-      <Row>
-        <Col md={4} xs={6} className="float-left">
-          <Image className="float-left" src="https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=jpg&quality=90&v=1530129081" width="80%" />
-        </Col>
-        <Col  md={4}>
-          <Button>
-            Button
-          </Button>
-        </Col>
-        <Col md={4} xs={6} >
-          <Image className="float-right" src="https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=jpg&quality=90&v=1530129081" width="80%" />
+        <Col lg={3}>
+          <Image
+            className="float-right"
+            src="https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=jpg&quality=90&v=1530129081"
+            width="80%"
+          />
         </Col>
       </Row>
+      <Row></Row>
     </Container>
   );
 };

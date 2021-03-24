@@ -1,19 +1,27 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
 import { Col, Container, Image, Row } from "react-bootstrap";
-import { showCharacterInfo } from "../actions/searchActions";
 
 const CharacterPage = ({ match }) => {
+  const [character, setCharacter] = useState({});
+  const [loading, setIsLoading] = useState(false);
+  const [error, setErrorMessage] = useState(null);
+
   const characterID = match.params.id;
 
-  const dispatch = useDispatch();
-
-  const characterInfo = useSelector((state) => state.characterInfo);
-  const { loading, character, error } = characterInfo;
+  const API = `https://www.superheroapi.com/api.php/3619192178108339/${characterID}`
 
   useEffect(() => {
-    dispatch(showCharacterInfo(characterID));
-  }, [dispatch, characterID]);
+    fetch(API)
+    .then(res => res.json())
+    .then(data => {
+      if(data.response === 'success') {
+        setCharacter(data);
+      } else {
+        setErrorMessage(data.error)
+        setIsLoading(false)
+      }
+    })
+  }, [API]);
 
   function capitalize(word) {
     return word.trim().replace(/^\w/, (c) => c.toUpperCase());
@@ -89,7 +97,8 @@ const CharacterPage = ({ match }) => {
                 </h4>
                 <br />
                 <h4>
-                  Durability: {character.powerstats &&
+                  Durability:{" "}
+                  {character.powerstats &&
                     (character.powerstats.durability === "null"
                       ? "N/A"
                       : character.powerstats.durability)}
