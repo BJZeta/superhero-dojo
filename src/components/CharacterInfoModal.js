@@ -27,12 +27,13 @@ const CharacterInfoModal = (props) => {
 
   return (
     <Modal {...props} size="lg" aria-labelledby={character.id} centered>
-      <Modal.Header closeButton>
+      <Modal.Header>
         {loading && <h2>Loading....</h2>}
         {error && <h2>{error}</h2>}
         <Modal.Title id={character.id}>
-          <h2>{character.name} - <span>{character.biography && character.biography['full-name']}</span></h2>
+          <h3>{character.name} - <span>{character.biography && character.biography['full-name']}</span></h3>          
         </Modal.Title>
+        <Button className="btn btn-danger">Add Fighter <i className="fas fa-fist-raised"/></Button>
       </Modal.Header>
       <Modal.Body>
         <Container>
@@ -117,11 +118,11 @@ const CharacterInfoModal = (props) => {
           </Row>
         </Container>
       </Modal.Body>
-      <Modal.Footer className="float-left">
-        <h4>
+      <Modal.Footer>
+        <h5 className="mr-auto">
           First Appearance:{" "}
           {character.biography && character.biography["first-appearance"]}
-        </h4>
+        </h5>
         <Button onClick={props.onHide}>Close</Button>
       </Modal.Footer>
     </Modal>
