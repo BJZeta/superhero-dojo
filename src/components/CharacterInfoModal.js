@@ -33,7 +33,7 @@ const CharacterInfoModal = (props) => {
         <Modal.Title id={character.id}>
           <h3>{character.name} - <span>{character.biography && character.biography['full-name']}</span></h3>          
         </Modal.Title>
-        <Button className="btn btn-danger">Add Fighter <i className="fas fa-fist-raised"/></Button>
+        <Button className="btn btn-danger" onClick={() => props.onAddCharacter(character)}>Add Fighter <i className="fas fa-fist-raised"/></Button>
       </Modal.Header>
       <Modal.Body>
         <Container>

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Card, Button, Image } from "react-bootstrap";
 import CharacterInfoModal from "./CharacterInfoModal";
 
-const SearchCard = ({ character }) => {
+const SearchCard = ({ character, addCharacter }) => {
   const [modalShow, setModalShow] = useState(false);
 
   return (
@@ -42,6 +42,7 @@ const SearchCard = ({ character }) => {
         characterID={character.id}
         show={modalShow}
         onHide={() => setModalShow(false)}
+        onAddCharacter={addCharacter}
       />
     </>
   );
