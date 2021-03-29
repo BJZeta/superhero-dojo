@@ -21,6 +21,13 @@ const CharacterInfoModal = (props) => {
       });
   }, [API]);
 
+
+  function onButtonClick(event){
+    props.onAddCharacter(character)
+    props.onHide()
+    props.onEmptySearchResults();
+  }
+
   function capitalize(word) {
     return word.trim().replace(/^\w/, (c) => c.toUpperCase());
   }
@@ -31,9 +38,20 @@ const CharacterInfoModal = (props) => {
         {loading && <h2>Loading....</h2>}
         {error && <h2>{error}</h2>}
         <Modal.Title id={character.id}>
-          <h3>{character.name} - <span>{character.biography && character.biography['full-name']}</span></h3>          
+          <h3>
+            {character.name} -{" "}
+            <span>
+              {character.biography && character.biography["full-name"]}
+            </span>
+          </h3>
         </Modal.Title>
-        <Button className="btn btn-danger" onClick={() => props.onAddCharacter(character)}>Add Fighter <i className="fas fa-fist-raised"/></Button>
+        <Button
+          className="btn btn-danger"
+          on
+          onClick={onButtonClick}
+        >
+          Add Fighter <i className="fas fa-fist-raised" />
+        </Button>
       </Modal.Header>
       <Modal.Body>
         <Container>

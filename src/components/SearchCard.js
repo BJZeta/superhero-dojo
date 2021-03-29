@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-// import { LinkContainer } from "react-router-bootstrap";
 import { Card, Button, Image } from "react-bootstrap";
 import CharacterInfoModal from "./CharacterInfoModal";
 
-const SearchCard = ({ character, addCharacter }) => {
+const SearchCard = ({ character, addCharacter, onEmptyResults }) => {
   const [modalShow, setModalShow] = useState(false);
 
   return (
@@ -43,6 +42,7 @@ const SearchCard = ({ character, addCharacter }) => {
         show={modalShow}
         onHide={() => setModalShow(false)}
         onAddCharacter={addCharacter}
+        onEmptySearchResults={onEmptyResults}
       />
     </>
   );

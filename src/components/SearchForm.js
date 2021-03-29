@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import SearchCard from "./SearchCard";
 
-const SearchForm = ({addCharacter}) => {
+const SearchForm = ({ addCharacter }) => {
   const [characters, setCharacters] = useState([]);
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
@@ -28,6 +28,10 @@ const SearchForm = ({addCharacter}) => {
         }
       });
   };
+
+  const handleEmptySearchResults = () => {
+    setCharacters([])
+  }
 
   return (
     <>
@@ -57,7 +61,11 @@ const SearchForm = ({addCharacter}) => {
       {loading && <h1>Loading....</h1>}
       {error && <h3>{error}</h3>}
       {characters &&
-        characters.map((character) => <SearchCard addCharacter={addCharacter} character={character} />)}
+        characters.map((character) => (
+          <>
+            <SearchCard addCharacter={addCharacter} onEmptyResults={handleEmptySearchResults} character={character} />{" "}
+          </>
+        ))}
     </>
   );
 };
