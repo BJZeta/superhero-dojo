@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import SearchCard from "./SearchCard";
 
-const SearchForm = ({ addCharacter }) => {
+const SearchForm = ({ addCharacter, emptySearchForm }) => {
   const [characters, setCharacters] = useState([]);
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
@@ -48,12 +48,9 @@ const SearchForm = ({ addCharacter }) => {
             If a character isn't appearing, try using their Alias, i.e. Dick
             Grayson, Miles Morales. Also, try hyphens (Spider-Man)
           </Form.Text>
-          <div className="justify-content-between">
+          <div className="text-center">
             <Button variant="primary" type="submit">
               Search
-            </Button>
-            <Button className="float-right ml-3" variant="danger" type="submit">
-              FIGHT!
             </Button>
           </div>
         </Form.Group>
