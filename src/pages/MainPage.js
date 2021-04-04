@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Container, Row, Col, Image, Button } from "react-bootstrap";
 import { MDBView, MDBMask } from "mdbreact";
+import Results from "../components/Results";
 import SearchForm from "../components/SearchForm";
 import questionMark from "../assets/question.gif";
 
 const MainPage = () => {
   const [characters, setCharacters] = useState([]);
+  const [winner, setWinner] = useState({});
+  const [haveFought, setHaveFought] = useState(false);
 
   const handleAddCharacter = (newCharacter) => {
     if (characters.length <= 2) {
@@ -46,10 +49,15 @@ const MainPage = () => {
 
     console.log(stats1, stats2);
 
+    let winner;
     if (stats1 > stats2) {
-      return console.log(fighter1.name);
+      winner = fighter1;
+      setWinner(winner);
+      setHaveFought(true);
     } else if (stats1 < stats2) {
-      return console.log(fighter2.name);
+      winner = fighter2;
+      setWinner(winner);
+      setHaveFought(true);
     } else {
       return console.log("Tie!!");
     }
@@ -133,8 +141,7 @@ const MainPage = () => {
           )}
         </Col>
       </Row>
-      <Row>
-      </Row>
+      <Row>{haveFought && <Results winner={winner} />}</Row>
     </Container>
   );
 };
