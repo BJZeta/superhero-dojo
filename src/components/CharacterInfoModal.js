@@ -1,10 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { Button, Modal, Col, Container, Image, Row } from "react-bootstrap";
+import {
+  Button,
+  Modal,
+  Col,
+  Container,
+  Image,
+  Row,
+  OverlayTrigger,
+  Tooltip,
+} from "react-bootstrap";
 
 const CharacterInfoModal = (props) => {
   const [character, setCharacter] = useState({});
   const [loading, setIsLoading] = useState(false);
   const [error, setErrorMessage] = useState(null);
+  const [isPlayable, setIsPlayable] = useState(null);
 
   const API = `https://www.superheroapi.com/api.php/3619192178108339/${props.characterID}`;
 
@@ -14,6 +24,7 @@ const CharacterInfoModal = (props) => {
       .then((data) => {
         if (data.response === "success") {
           setCharacter(data);
+          checkIfNotPlayable(data.powerstats.power);
         } else {
           setErrorMessage(data.error);
           setIsLoading(false);
@@ -21,12 +32,25 @@ const CharacterInfoModal = (props) => {
       });
   }, [API]);
 
-
-  function onButtonClick(event){
-    props.onAddCharacter(character)
-    props.onHide()
+  function onButtonClick(event) {
+    props.onAddCharacter(character);
+    props.onHide();
     props.onEmptySearchResults();
   }
+
+  function checkIfNotPlayable(power) {
+    if (power === "null") {
+      setIsPlayable(false);
+    } else {
+      setIsPlayable(true);
+    }
+  }
+
+  const renderTooltip = (props) => (
+    <Tooltip className="tooltip" id="button-tooltip" {...props}>
+      This character is unplayable due to incomplete stat sheet
+    </Tooltip>
+  );
 
   function capitalize(word) {
     return word.trim().replace(/^\w/, (c) => c.toUpperCase());
@@ -45,13 +69,19 @@ const CharacterInfoModal = (props) => {
             </span>
           </h3>
         </Modal.Title>
-        <Button
-          className="btn btn-danger"
-          on
-          onClick={onButtonClick}
-        >
-          Add Fighter <i className="fas fa-fist-raised" />
-        </Button>
+        {isPlayable ? (
+          <Button className="btn btn-danger" on onClick={onButtonClick}>
+            Add Fighter <i className="fas fa-fist-raised" />
+          </Button>
+        ) : (
+          <OverlayTrigger
+            placement="bottom-end"
+            delay={{ show: 200, hide: 400 }}
+            overlay={renderTooltip}
+          >
+            <Button variant="danger" className="button-disabled">Add Fighter</Button>
+          </OverlayTrigger>
+        )}
       </Modal.Header>
       <Modal.Body>
         <Container>

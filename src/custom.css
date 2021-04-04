@@ -7,5 +7,13 @@
 }
 
 .black-text h1 {
-  color: black
+  color: black;
+}
+
+.tooltip {
+  z-index: 1151 !important;
+}
+
+.button-disabled {
+  opacity: 0.8;  
 }
