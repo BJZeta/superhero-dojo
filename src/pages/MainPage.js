@@ -8,6 +8,7 @@ import questionMark from "../assets/question.gif";
 const MainPage = () => {
   const [characters, setCharacters] = useState([]);
   const [winner, setWinner] = useState({});
+  const [loser, setLoser] = useState({});
   const [haveFought, setHaveFought] = useState(false);
 
   const handleAddCharacter = (newCharacter) => {
@@ -48,15 +49,13 @@ const MainPage = () => {
       Number(fighter2.powerstats.combat);
 
     console.log(stats1, stats2);
-
-    let winner;
     if (stats1 > stats2) {
-      winner = fighter1;
-      setWinner(winner);
+      setWinner(fighter1);
+      setLoser(fighter2)
       setHaveFought(true);
     } else if (stats1 < stats2) {
-      winner = fighter2;
-      setWinner(winner);
+      setWinner(fighter2);
+      setLoser(fighter1)
       setHaveFought(true);
     } else {
       return console.log("Tie!!");
@@ -141,7 +140,7 @@ const MainPage = () => {
           )}
         </Col>
       </Row>
-      <Row>{haveFought && <Results winner={winner} />}</Row>
+      <Row className="mt-4">{haveFought && <Results winner={winner} loser={loser} />}</Row>
     </Container>
   );
 };
