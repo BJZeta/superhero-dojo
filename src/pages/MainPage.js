@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Image, Button } from "react-bootstrap";
-import { MDBView, MDBMask } from "mdbreact";
 import Results from "../components/Results";
 import SearchForm from "../components/SearchForm";
 import questionMark from "../assets/question.gif";
@@ -22,11 +21,6 @@ const MainPage = () => {
 
   const handleEmptySearchForm = () => {
     setCharacters([]);
-  };
-
-  const handleRemoveCharacter = (characterId) => {
-    setCharacters(characters.splice(characterId, 1));
-    console.log(characters);
   };
 
   function checkWinner(fighter1, fighter2) {
@@ -73,22 +67,12 @@ const MainPage = () => {
           {characters[0] ? (
             <>
               <h4>{characters[0].name}</h4>
-              <MDBView hover>
-                <img
+              <img
                   className="float-left"
                   src={characters[0].image && characters[0].image.url}
                   width="80%"
                   alt="fighter"
                 />
-                <MDBMask className="flex-center" overlay="stylish-strong">
-                  <Button
-                    value={characters[0].id}
-                    onClick={() => handleRemoveCharacter(characters[0].id)}
-                  >
-                    Remove
-                  </Button>
-                </MDBMask>
-              </MDBView>
             </>
           ) : (
             <>
@@ -114,23 +98,13 @@ const MainPage = () => {
         <Col lg={3}>
           {characters[1] ? (
             <>
-              <h4>{characters[1].name}</h4>
-              <MDBView hover>
-                <img
+              <h4 className="text-center">{characters[1].name}</h4>
+              <img
                   className="float-right"
                   src={characters[1].image && characters[1].image.url}
                   width="80%"
                   alt="fighter"
                 />
-                <MDBMask className="flex-center" overlay="stylish-strong">
-                  <Button
-                    value={characters[1].id}
-                    onClick={(e) => handleRemoveCharacter(e.target.value)}
-                  >
-                    Remove
-                  </Button>
-                </MDBMask>
-              </MDBView>
             </>
           ) : (
             <>
@@ -140,7 +114,7 @@ const MainPage = () => {
           )}
         </Col>
       </Row>
-      <Row className="mt-4">{haveFought && <Results winner={winner} loser={loser} />}</Row>
+      {haveFought && <Results winner={winner} loser={loser} />}
     </Container>
   );
 };
