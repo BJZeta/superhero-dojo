@@ -1,37 +1,26 @@
 import React from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
-import BackgroundSlider from "react-background-slider";
+import { Button, Container, Row } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 const HomePage = () => {
   return (
-    <Container className="justify-content-center text-align-center black-text">
-      <BackgroundSlider
-        images={["./images/avengers-xmen.jpeg", "./images/jla.jpg"]}
-        duration={4}
-        transition={1}
-      />
-      <Row>
-        <h1>Welcome to the</h1>
+    <Container className="justify-content-center landingscreen">
+      <Row className="justify-content-center">
+        <h1 className="animate__animated animate__heartBeat animate__infinite animate__slower">
+          Hero DOJO
+        </h1>
       </Row>
-      <Row>
-        <h1>HERO DOJO</h1>
+      <Row className="justify-content-center mt-5">
+        <h4>
+          Test the MIGHT of your favorite heroes and villains
+        </h4>
       </Row>
-      <Row>
-        <Col>
-          <LinkContainer to="/search">
-            <Button variant="primary">
-              <i className="fas fa-search" /> Character Search
-            </Button>
-          </LinkContainer>
-        </Col>
-        <Col>
-          <LinkContainer to="/dojo">
+      <Row className="justify-content-center mt-5">
+      <LinkContainer to="/search">
             <Button variant="secondary">
-              <i className="fas fa-fist-raised" /> LET THEM FIGHT!
+              <i className="fas fa-fist-raised" /> Enter the DOJO
             </Button>
           </LinkContainer>
-        </Col>
       </Row>
     </Container>
   );

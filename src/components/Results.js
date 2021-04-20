@@ -55,7 +55,7 @@ const Results = ({ winner, loser }) => {
       <Col md="6">
         <img src={winner.image.url} width="65%" alt={winner.name} />
       </Col>
-      <Col md="6">
+      <Col md="6">        
         <h2>Winner: {winner.name}</h2>
         <h4>Stat Comparison</h4>
         {overallStats.strength.lead}
