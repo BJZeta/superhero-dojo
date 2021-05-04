@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import SearchCard from "./SearchCard";
 import CharacterPagination from "./CharacterPagination";
-import env from 'react-dotenv'
+import env from "react-dotenv";
 
 const SearchForm = ({ addCharacter }) => {
   const [characters, setCharacters] = useState([]);
@@ -11,6 +11,13 @@ const SearchForm = ({ addCharacter }) => {
   const [error, setErrorMessage] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [charactersPerPage] = useState(3);
+
+  const fs = require("fs");
+  const path = `./.env`;
+  const vars = `
+ SUPERHERO_API=${process.env.SUPERHERO_API_NETLIFY}
+`;
+  fs.writeFileSync(path, vars);
 
   const handleSearchCharacter = (e) => {
     e.preventDefault();
@@ -45,7 +52,7 @@ const SearchForm = ({ addCharacter }) => {
     setCharacters([]);
   };
 
-  const handlePaginate = (pageNumber) => setCurrentPage(pageNumber) 
+  const handlePaginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <>
