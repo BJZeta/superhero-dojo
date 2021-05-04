@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap");
 * {
-  font-family: 'Zen Dots', cursive;
+  font-family: "Zen Dots", cursive;
 }
 
 .landingscreen {
@@ -8,7 +8,7 @@
 }
 
 .landingscreen h1 {
-  text-shadow: 0 2rem 2rem  #000;
+  text-shadow: 0 2rem 2rem #000;
 }
 
 .remove-btn {
@@ -28,5 +28,17 @@
 }
 
 .button-disabled {
-  opacity: 0.8;  
+  opacity: 0.8;
+}
+
+.hover {
+  transition: transform 0.2s;
+}
+
+.hover:hover {
+  transform: scale(1.2);
+}
+
+.pagination-colors {
+  color: #000;
 }

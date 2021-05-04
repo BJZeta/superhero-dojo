@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 
-const Results = ({ winner, loser }) => {
+const Results = ({ winner, loser, clearButton }) => {
   const [overallStats, setOverallStats] = useState({
     strength: {},
     intelligence: {},
@@ -91,7 +91,7 @@ const Results = ({ winner, loser }) => {
                 {overallStats.speed.lead} - {overallStats.speed.stat}
               </p>
             </li>
-            <Button className="mt-4 btn-danger ">Choose New Fighters</Button>
+            <Button className="mt-4 btn-danger" onClick={(e) => clearButton()}>Choose New Fighters</Button>
           </ul>
 
           <ul className="float-right">

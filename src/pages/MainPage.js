@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Image, Button } from "react-bootstrap";
 import Results from "../components/Results";
+import Tie from "../components/Tie";
 import SearchForm from "../components/SearchForm";
 import questionMark from "../assets/question.gif";
 
@@ -9,6 +10,7 @@ const MainPage = () => {
   const [winner, setWinner] = useState({});
   const [loser, setLoser] = useState({});
   const [haveFought, setHaveFought] = useState(false);
+  const [isATie, setIsATie] = useState(false);
 
   const handleAddCharacter = (newCharacter) => {
     if (characters.length <= 2) {
@@ -21,6 +23,8 @@ const MainPage = () => {
 
   const handleEmptySearchForm = () => {
     setCharacters([]);
+    setHaveFought(false);
+    setIsATie(false);
   };
 
   function checkWinner(fighter1, fighter2) {
@@ -45,14 +49,15 @@ const MainPage = () => {
     console.log(stats1, stats2);
     if (stats1 > stats2) {
       setWinner(fighter1);
-      setLoser(fighter2)
+      setLoser(fighter2);
       setHaveFought(true);
     } else if (stats1 < stats2) {
       setWinner(fighter2);
-      setLoser(fighter1)
+      setLoser(fighter1);
       setHaveFought(true);
     } else {
-      return console.log("Tie!!");
+      setIsATie(true);
+      setHaveFought(true);
     }
   }
 
@@ -61,18 +66,18 @@ const MainPage = () => {
   };
 
   return (
-    <Container>
+    <Container className="pt-2">
       <Row className="justify-content-center">
         <Col lg={3} className="float-left">
           {characters[0] ? (
             <>
               <h4>{characters[0].name}</h4>
               <img
-                  className="float-left"
-                  src={characters[0].image && characters[0].image.url}
-                  width="80%"
-                  alt="fighter"
-                />
+                className="float-left"
+                src={characters[0].image && characters[0].image.url}
+                width="80%"
+                alt="fighter"
+              />
             </>
           ) : (
             <>
@@ -83,11 +88,20 @@ const MainPage = () => {
         </Col>
         <Col lg={5}>
           {characters.length === 2 ? (
-            <Button
-              onClick={() => handleSetWinner(characters[0], characters[1])}
-            >
-              Let them FIGHT!
-            </Button>
+            <div className="text-center py-5">
+              <Button
+                className="mr-5 hover"
+                onClick={() => handleSetWinner(characters[0], characters[1])}
+              >
+                Let them FIGHT!
+              </Button>
+              <Button
+                className="btn-danger hover"
+                onClick={() => handleEmptySearchForm()}
+              >
+                Clear
+              </Button>
+            </div>
           ) : (
             <SearchForm
               addCharacter={handleAddCharacter}
@@ -100,11 +114,11 @@ const MainPage = () => {
             <>
               <h4 className="text-center">{characters[1].name}</h4>
               <img
-                  className="float-right"
-                  src={characters[1].image && characters[1].image.url}
-                  width="80%"
-                  alt="fighter"
-                />
+                className="float-right"
+                src={characters[1].image && characters[1].image.url}
+                width="80%"
+                alt="fighter"
+              />
             </>
           ) : (
             <>
@@ -114,7 +128,20 @@ const MainPage = () => {
           )}
         </Col>
       </Row>
-      {haveFought && <Results winner={winner} loser={loser} />}
+      {haveFought &&
+        (isATie ? (
+          <Tie
+            characterOne={characters[0]}
+            characterTwo={characters[1]}
+            clearButton={handleEmptySearchForm}
+          />
+        ) : (
+          <Results
+            winner={winner}
+            loser={loser}
+            clearButton={handleEmptySearchForm}
+          />
+        ))}
     </Container>
   );
 };

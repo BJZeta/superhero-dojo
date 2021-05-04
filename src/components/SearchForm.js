@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import SearchCard from "./SearchCard";
+import CharacterPagination from "./CharacterPagination";
 
-const SearchForm = ({ addCharacter, emptySearchForm }) => {
+const SearchForm = ({ addCharacter }) => {
   const [characters, setCharacters] = useState([]);
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setErrorMessage] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [charactersPerPage] = useState(3);
 
   const handleSearchCharacter = (e) => {
     e.preventDefault();
@@ -22,6 +25,7 @@ const SearchForm = ({ addCharacter, emptySearchForm }) => {
           setCharacters(res.results);
           setName("");
           setLoading(false);
+          setCurrentPage(1);
         } else {
           setErrorMessage(res.error);
           setLoading(false);
@@ -29,9 +33,18 @@ const SearchForm = ({ addCharacter, emptySearchForm }) => {
       });
   };
 
+  const indexOfLastCharacter = currentPage * charactersPerPage;
+  const indexOfFirstCharacter = indexOfLastCharacter - charactersPerPage;
+  const currentCharacters = characters.slice(
+    indexOfFirstCharacter,
+    indexOfLastCharacter
+  );
+
   const handleEmptySearchResults = () => {
-    setCharacters([])
-  }
+    setCharacters([]);
+  };
+
+  const handlePaginate = (pageNumber) => setCurrentPage(pageNumber) 
 
   return (
     <>
@@ -49,7 +62,7 @@ const SearchForm = ({ addCharacter, emptySearchForm }) => {
             Grayson, Miles Morales. Also, try hyphens (Spider-Man)
           </Form.Text>
           <div className="text-center">
-            <Button variant="primary" type="submit">
+            <Button className="hover" variant="primary" type="submit">
               Search
             </Button>
           </div>
@@ -57,12 +70,21 @@ const SearchForm = ({ addCharacter, emptySearchForm }) => {
       </Form>
       {loading && <h1>Loading....</h1>}
       {error && <h3>{error}</h3>}
-      {characters &&
-        characters.map((character) => (
+      {currentCharacters &&
+        currentCharacters.map((character) => (
           <>
-            <SearchCard addCharacter={addCharacter} onEmptyResults={handleEmptySearchResults} character={character} />{" "}
+            <SearchCard
+              addCharacter={addCharacter}
+              onEmptyResults={handleEmptySearchResults}
+              character={character}
+            />{" "}
           </>
         ))}
+      <CharacterPagination
+        charactersPerPage={charactersPerPage}
+        totalCharacters={characters.length}
+        paginate={handlePaginate}
+      />
     </>
   );
 };
