@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import SearchCard from "./SearchCard";
 import CharacterPagination from "./CharacterPagination";
+import env from 'react-dotenv'
 
 const SearchForm = ({ addCharacter }) => {
   const [characters, setCharacters] = useState([]);
@@ -17,7 +18,7 @@ const SearchForm = ({ addCharacter }) => {
     setLoading(true);
     setErrorMessage(null);
     fetch(
-      `https://www.superheroapi.com/api.php/3619192178108339/search/${name}`
+      `https://www.superheroapi.com/api.php/${env.SUPERHERO_API}/search/${name}`
     )
       .then((res) => res.json())
       .then((res) => {

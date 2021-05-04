@@ -9,6 +9,8 @@ import {
   OverlayTrigger,
   Tooltip,
 } from "react-bootstrap";
+import env from 'react-dotenv';
+
 
 const CharacterInfoModal = (props) => {
   const [character, setCharacter] = useState({});
@@ -16,7 +18,7 @@ const CharacterInfoModal = (props) => {
   const [error, setErrorMessage] = useState(null);
   const [isPlayable, setIsPlayable] = useState(null);
 
-  const API = `https://www.superheroapi.com/api.php/3619192178108339/${props.characterID}`;
+  const API = `https://www.superheroapi.com/api.php/${env.SUPERHERO_API}/${props.characterID}`;
 
   useEffect(() => {
     fetch(API)
